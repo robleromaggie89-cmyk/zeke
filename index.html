@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova Games</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --accent: #7c5cff;
+      --accent2: #00d9ff;
+      --bg: #08080d;
+      --card: rgba(18, 18, 27, 0.82);
+      --border: rgba(255,255,255,0.09);
+      --text: #ffffff;
+      --muted: #9b9ba8;
+    }
+
+    body {black
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background */
+    #background {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(124,92,255,.18), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(0,217,255,.12), transparent 35%),
+        #08080d;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #background::after {blue
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(5,5,10,.55);
+      backdrop-filter: blur(2px);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+      background: rgba(8,8,13,.7);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+    }
+
+    .logo {walmart
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    nav button {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    nav button:hover {
+      background: rgba(124,92,255,.2);
+      border-color: rgba(124,92,255,.5);
+    }
+
+    main {67
+      width: min(1100px, 90%);
+      margin: auto;
+      padding: 70px 0;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 18px;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, #fff, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    /* Games */
+    .games {roblox tiktok youtube 
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .game {https: //www .roblox .com;
+      position: relative;
+      min-height: 220px;
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      transition: transform .25s, border-color .
+
+    .game:hover {
+      transform: translateY(-7px);
+      border-color: rgba(124,92,255,.55);
+    }
+
+    .game-number {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 45px;
+    }
+
+    .game h2 {https: //www .google .com;
+      font-size: 23px;
+      margin-bottom: 8px;
+    }
+
+    .game p {https: //www .tiktok .com;
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .play {https: //www .google .com;
+      display: inline-block;
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #5c43d9);
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    .play:hover {
+      transform: scale(1.04);
+    }
+
+    /* Panel */
+    .panel {
+      display: none;
+      margin-top: 35px;
+      padding: 25px;
+      background: rgba(15,15,23,.9);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .panel h2 {
+      margin-bottom: 20px;
+    }
+
+    .setting {
+      margin-bottom: 22px;
+    }
+
+    .setting label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    input[type="color"] {
+      width: 60px;
+      height: 40px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      max-width: 350px;
+      accent-color: var(--accent);
+    }
+
+    input[type="text"] {
+      width: 100%;
+      max-width: 600px;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      color: white;
+      background: rgba(255,255,255,.05);
+    }
+
+    .crosshair-preview {
+      width: 90px;
+      height: 90px;
+      margin-top: 15px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .crosshair {
+      position: relative;
+      width: 35px;
+      height: 35px;
+    }
+
+    .crosshair::before,
+    .crosshair::after {
+      content: "";
+      position: absolute;
+      background: var(--crosshair-color, #ffffff);
+      border-radius: 2px;
+    }
+
+    .crosshair::before {
+      width: 4px;
+      height: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .crosshair::after {
+      height: 4px;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #666675;
+      font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+      .games {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 0 5%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="background"></div>
+
+  <header>
+    <div class="logo">NOVA<span>GAMES</span></div>
+
+    <nav>
+      <button onclick="togglePanel('crosshairPanel')">
+        Crosshair
+      </button>
+
+      <button onclick="togglePanel('backgroundPanel')">
+        Background
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <h1>Play <span class="gradient">Anything.</span></h1>
+      <p>Fast. Simple. No distractions.</p>
+    </section>
+
+    <section class="games">
+
+      <!-- GAME 1 -->
+      <div class="game">
+        <div class="game-number">01 / GAME</div>
+        <h2>Game One</h2>
+        <p>Replace this with your first game.</p>
+
+        <!-- Replace URL below -->
+        <a class="play" href="https://example.com/game1">
+          Play Now →
+        </a>
+      </div>
+
+      <!-- GAME 2 -->
+      <div class="game">
+        <div class="game-number">02 / GAME</div>
+        <h2>Game Two</h2>
+        <p>Replace this with your second game.</p>
+
+        <!-- Replace URL below -->
+        <a class="play" href="https://example.com/game2">
+          Play Now →
+        </a>
+      </div>
+
+      <!-- GAME 3 -->
+      <div class="game">
+        <div class="game-number">03 / GAME</div>
+        <h2>Game Three</h2>
+        <p>Replace this with your third game.</p>
+
+        <!-- Replace URL below -->
+        <a class="play" href="https://example.com/game3">
+          Play Now →
+        </a>
+      </div>
+
+    </section>
+
+    <!-- CROSSHAIR PANEL -->
+    <section id="crosshairPanel" class="panel">
+
+      <h2>Custom Crosshair</h2>
+
+      <div class="setting">
+        <label>Crosshair Color</label>
+        <input
+          type="color"
+          id="crosshairColor"
+          value="#ffffff"
+          onchange="updateCrosshair()"
+        >
+      </div>
+
+      <div class="setting">
+        <label>Crosshair Size</label>
+        <input
+          type="range"
+          id="crosshairSize"
+          min="10"
+          max="70"
+          value="35"
+          oninput="updateCrosshair()"
+        >
+      </div>
+
+      <div class="crosshair-preview">
+        <div id="previewCrosshair" class="crosshair"></div>
+      </div>
+
+    </section>
+
+    <!-- BACKGROUND PANEL -->
+    <section id="backgroundPanel" class="panel">
+
+      <h2>Custom GIF Background</h2>
+
+      <div class="setting">
+        <label>Paste a GIF image URL</label>
+
+        <input
+          type="text"
+          id="gifURL"
+          placeholder="https://example.com/background.gif"
+          oninput="updateBackground()"
+        >
+      </div>
+
+      <div class="setting">
+        <label>Background Preview</label>
+        <p style="color:#777; font-size:13px;">
+          Paste a direct .gif image URL above.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    NOVA GAMES · Built for the web
+  </footer>
+
+
+  <script>
+
+    function togglePanel(id) {
+      const panel = document.getElementById(id);
+      panel.classList.toggle("active");
+    }
+
+
+    function updateCrosshair() {
+
+      const color =
+        document.getElementById("crosshairColor").value;
+
+      const size =
+        document.getElementById("crosshairSize").value;
+
+      const crosshair =
+        document.getElementById("previewCrosshair");
+
+      crosshair.style.width = size + "px";
+      crosshair.style.height = size + "px";
+      crosshair.style.setProperty(
+        "--crosshair-color",
+        color
+      );
+    }
+
+
+    function updateBackground() {
+
+      const url =
+        document.getElementById("gifURL").value.trim();
+
+      const background =
+        document.getElementById("background");
+
+      if (url) {
+        background.style.backgroundImage =
+          `url("${url}")`;
+      } else {
+        background.style.backgroundImage = "";
+      }
+    }
+
+  </script>
+
+</body>
+</html>
